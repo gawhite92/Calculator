@@ -1,0 +1,70 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    margin: 0px;
+    width: 700px;
+    height: 850px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+#displayScreenContainer {
+    height: 150px;
+    text-align: end;
+    font-size: 30px;
+    display:flex;
+    justify-content: space-between;
+}
+
+#clearButton {
+    height: 150px;
+    width: 175px;
+    font-size: 50px;
+    text-align: start;    
+    box-sizing: border-box;
+    align-content: end;
+}
+
+#buttonContainer {
+    height: 700px;
+    display: flex;
+    border: solid black 1px inset;
+    box-sizing: border-box;
+}
+
+#buttonsLeft {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0px;
+}
+
+#buttonsRight {
+    width: 175px;
+    font-weight: bold;
+}
+
+li {
+    list-style-type: none;
+    height: 175px;
+    width: 175px;
+    font-size: 50px;
+    text-align: center;    
+    border: solid black 1px;
+    box-sizing: border-box;
+    align-content: center;
+
+}
+
+#textDisplayBottom {
+    font-size: 80px;
+}
+
+
+
+
+
+
