@@ -1,3 +1,5 @@
+///////////////////////////////////////////////// VARIABLES /////////////////////////////////////////////////
+
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
@@ -8,11 +10,12 @@ let lastStoredResult = "";
 let secondNumberToggle = false;
 let newCalculationToggle = false;
 
+///////////////////////////////////////////////// BUTTONS /////////////////////////////////////////////////
 
-const buttons = document.querySelectorAll("button");    //10 numbers buttons
+const buttons = document.querySelectorAll("button");
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        if (newCalculationToggle === true) {           // Checks if you have already pressed '=' (completed a calculation) and clears the top screen section if true.
+        if (newCalculationToggle === true) {   // Checks if you have just pressed '=' (completed a calculation) and clears the top screen section if true. Immediately changes flag back to false after.
             textDisplayTop.textContent = ""
             newCalculationToggle = false;
         }
@@ -21,16 +24,21 @@ buttons.forEach((button) => {
         } else {
             return secondNumber += (button.id), result += (button.id), textDisplayBottom.textContent = `${result}`;
         }
-    })})
+    })
+})
 
 //Decimal button (Demical place - adds '.' string to active number)
 
 const buttonDecimal = document.querySelector("#buttonDecimal");
 buttonDecimal.addEventListener("click", () => {
-    if (secondNumberToggle === false) {
-        return firstNumber += ".", result += ".", textDisplayBottom.textContent = `${result}`;
+    if (result.includes(".")) {
+        return alert("Not possible")    // Only allows one decimal place per entry
     } else {
-        return secondNumber += ".", result += ".", textDisplayBottom.textContent = `${result}`;
+        if (secondNumberToggle === false) {
+            return firstNumber += ".", result += ".", textDisplayBottom.textContent = `${result}`;
+        } else {
+            return secondNumber += ".", result += ".", textDisplayBottom.textContent = `${result}`;
+        }
     }
 });
 
@@ -38,6 +46,9 @@ buttonDecimal.addEventListener("click", () => {
 
 const buttonEquals = document.querySelector("#buttonEquals");
 buttonEquals.addEventListener("click", () => {
+    if(firstNumber === "" && secondNumber === ""){
+        return alert("Not possible");
+    }
     operate();
     textDisplayBottom.textContent = `${result}`;
     textDisplayTop.textContent = `${displayValue}`;
@@ -48,13 +59,15 @@ buttonEquals.addEventListener("click", () => {
     result = ""
     secondNumberToggle = false;
     newCalculationToggle = true;
-  })
+    return
+})
 
 //Clear button (resetCalc FUNCTION)
 
-const buttonClear = document.querySelector("#buttonClear"); ///////////////////////
+const buttonClear = document.querySelector("#buttonClear");
 buttonClear.addEventListener("click", () => {
     resetCalc();
+    return
 });
 
 //Undo button (undoStep FUNCTION)
@@ -62,81 +75,117 @@ buttonClear.addEventListener("click", () => {
 const buttonUndo = document.querySelector("#buttonUndo");
 buttonUndo.addEventListener("click", () => {
     alert("Undo");
+    return
 });
 
-//4 operators (above FUNCTIONS)
+//4 operator buttons
 
 const buttonAdd = document.querySelector("#buttonAdd");
 buttonAdd.addEventListener("click", () => {
-    toggleSecondNumber();
-    if (secondNumber === "") {
-        operator = "+", displayValue += `${firstNumber} + `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+    if (firstNumber === "") { // Stops assigning operator with no firstNumber
+        return alert("Not possible");
     } else {
-        operator = "+", displayValue += `${secondNumber} + `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        if (operator != "") { // There is a firstNumber, but with an existing operator
+            operateMultiple();
+            firstNumber = result;
+            secondNumber = "";
+            return operator = "+", displayValue = `${firstNumber} + `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        } else { //There is a firstNumber, but no existing operator
+            secondNumberToggle = true; 
+            operator = "+";
+            if (secondNumber === "") {
+                return operator = "+", displayValue += `${firstNumber} + `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+            }
+        }
     }
 });
 
 const buttonSubtract = document.querySelector("#buttonSubtract");
 buttonSubtract.addEventListener("click", () => {
-    toggleSecondNumber();
-    if (secondNumber === "") {
-        return operator = "-", displayValue += `${firstNumber} - `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+    if (firstNumber === "") { // Stops assigning operator with no firstNumber
+        return alert("Not possible");
     } else {
-        return operator = "-", displayValue += `${secondNumber} - `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        if (operator != "") { // There is a firstNumber, but with an existing operator
+            operateMultiple();
+            firstNumber = result;
+            secondNumber = "";
+            return operator = "-", displayValue = `${firstNumber} - `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        } else { //There is a firstNumber, but no existing operator
+            secondNumberToggle = true; 
+            operator = "-";
+            if (secondNumber === "") {
+                return operator = "-", displayValue += `${firstNumber} - `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+            }
+        }
     }
 });
 
 const buttonMultiply = document.querySelector("#buttonMultiply");
 buttonMultiply.addEventListener("click", () => {
-    toggleSecondNumber();
-    if (secondNumber === "") {
-        return operator = "*", displayValue += `${firstNumber} X `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+    if (firstNumber === "") { // Stops assigning operator with no firstNumber
+        return alert("Not possible");
     } else {
-        return operator = "*", displayValue += `${secondNumber} X `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        if (operator != "") { // There is a firstNumber, but with an existing operator
+            operateMultiple();
+            firstNumber = result;
+            secondNumber = "";
+            return operator = "*", displayValue = `${firstNumber} * `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        } else { //There is a firstNumber, but no existing operator
+            secondNumberToggle = true; 
+            operator = "*";
+            if (secondNumber === "") {
+                return operator = "*", displayValue += `${firstNumber} * `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+            }
+        }
     }
 });
 
 const buttonDivide = document.querySelector("#buttonDivide");
 buttonDivide.addEventListener("click", () => {
-    toggleSecondNumber();
-    if (secondNumber === "") {
-        return operator = "/", displayValue += `${firstNumber} / `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+    if (firstNumber === "") { // Stops assigning operator with no firstNumber
+        return alert("Not possible");
     } else {
-        return operator = "/", displayValue += `${secondNumber} / `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        if (operator != "") { // There is a firstNumber, but with an existing operator
+            operateMultiple();
+            firstNumber = result;
+            secondNumber = "";
+            return operator = "/", displayValue = `${firstNumber} / `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+        } else { //There is a firstNumber, but no existing operator
+            secondNumberToggle = true; 
+            operator = "/";
+            if (secondNumber === "") {
+                return operator = "/", displayValue += `${firstNumber} / `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+            }
+        }
     }
 });
 
-//1 display screen (displayValue VARIABLE)
+///////////////////////////////////////////////// DISPLAY /////////////////////////////////////////////////
+
+//Top line (calculation parts)
 const textDisplayTop = document.querySelector("#textDisplayTop");
 textDisplayTop.textContent = `${displayValue}`;
-
+//Bottom line (result, OR the current selected number)
 const textDisplayBottom = document.querySelector("#textDisplayBottom");
 textDisplayBottom.textContent = `${result}`;
 
 
-//FUNCTIONS
-function toggleSecondNumber() {
-    if (secondNumberToggle === true) {
-        return secondNumberToggle = false;
-    } else {
-        return secondNumberToggle = true;
-    }
-}
+///////////////////////////////////////////////// FUNCTIONS /////////////////////////////////////////////////
 
 function add() {
-    return result = parseInt(firstNumber) + parseInt(secondNumber), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat(firstNumber) + parseFloat(secondNumber), textDisplayBottom.textContent = `${result}`;
 }
 
 function subtract() {
-    return result = parseInt(firstNumber) - parseInt(secondNumber), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat(firstNumber) - parseFloat(secondNumber), textDisplayBottom.textContent = `${result}`;
 }
 
 function multiply() {
-    return result = parseInt(firstNumber) * parseInt(secondNumber), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat(firstNumber) * parseFloat(secondNumber), textDisplayBottom.textContent = `${result}`;
 }
 
 function divide() {
-    return result = parseInt(firstNumber) / parseInt(secondNumber), textDisplayBottom.textContent = `${result}`;
+    return result = (parseFloat(firstNumber) / parseFloat(secondNumber)), textDisplayBottom.textContent = `${result}`;
 }
 
 function operate() {
@@ -163,6 +212,34 @@ function operate() {
         textDisplayTop.textContent = `${displayValue}`
         return lastStoredResult = result;
     }
+    return
+}
+
+function operateMultiple() {
+    if (operator === "+") {
+        add();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
+    } else if (operator === "*") {
+        multiply();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
+    }
+    else if (operator === "-") {
+        subtract();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
+    }
+    else if (operator === "/") {
+        divide();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
+    }
+    return
 }
 
 function resetCalc() {
@@ -177,9 +254,25 @@ function resetCalc() {
     return;
 }
 
-//undoStep = *need to research how to do this. Save state at each step for undo function?? Press undo - revert to last state???*
+function toggleSecondNumber() {
+    if (secondNumberToggle === true) {
+        return secondNumberToggle = false;
+    } else {
+        return secondNumberToggle = true;
+    }
+}
 
-//Press button 1 - stores in firstNumber and displayValue as string
-//Press button 2,3,4,5,DECIMALPLACE,etc - adds to above values as string
-//Press operator - Updates operator value and runs operatorSelect function.
+///////////////////////////////////////////////// IMPROVEMENTS /////////////////////////////////////////////////
 
+/* 
+
+01. Simplify operator button events - could possibly be done using objects
+    ie. Operator object
+    01. Key = Add, Value = "+"
+    02. Key = Multiply, Value = "*"
+
+02. UndoStep 
+    *need to research how to do this. Save state at each step for undo function?? Press undo - revert to last state???*
+
+03. Restrict result / display to ~5 decimal places.
+*/

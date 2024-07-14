@@ -50,7 +50,8 @@ body {
 }
 
 button,
-li {
+li,
+#buttonDecimal {
     list-style-type: none;
     height: 175px;
     width: 175px;
