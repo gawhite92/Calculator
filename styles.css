@@ -5,7 +5,7 @@
 
 body {
     margin: 0px;
-    width: 700px;
+    width: 716px;
     height: 850px;
     display: flex;
     flex-direction: column;
@@ -16,55 +16,56 @@ body {
     height: 150px;
     text-align: end;
     font-size: 30px;
-    display:flex;
+    display: flex;
     justify-content: space-between;
 }
 
-#clearButton {
+#clearUndoContainer {
     height: 150px;
     width: 175px;
-    font-size: 50px;
-    text-align: start;    
-    box-sizing: border-box;
-    align-content: end;
+    display:flex;
+    flex-direction: column;
+}
+
+#buttonUndo {
+    height: 75px;
+    width: 175px;
+    text-align: start;
+    align-content: center;
+    cursor: pointer;
+}
+
+#buttonClear {
+    height: 75px;
+    width: 175px;
+    text-align: start;
+    align-content: center;
+    cursor: pointer;
 }
 
 #buttonContainer {
     height: 700px;
     display: flex;
-    border: solid black 1px inset;
-    box-sizing: border-box;
-}
-
-#buttonsLeft {
-    display: flex;
     flex-wrap: wrap;
-    gap: 0px;
 }
 
-#buttonsRight {
-    width: 175px;
-    font-weight: bold;
-}
-
+button,
 li {
     list-style-type: none;
     height: 175px;
     width: 175px;
     font-size: 50px;
-    text-align: center;    
+    text-align: center;
     border: solid black 1px;
     box-sizing: border-box;
     align-content: center;
-
+    cursor: pointer;
+    margin: 2px;
+    border-radius: 3px;
+    background-color:rgb(200, 222, 241);
 }
 
 #textDisplayBottom {
     font-size: 80px;
 }
-
-
-
-
-
 
