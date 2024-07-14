@@ -46,7 +46,7 @@ buttonDecimal.addEventListener("click", () => {
 
 const buttonEquals = document.querySelector("#buttonEquals");
 buttonEquals.addEventListener("click", () => {
-    if(firstNumber === "" && secondNumber === ""){
+    if (firstNumber === "" && secondNumber === "") {
         return alert("Not possible");
     }
     operate();
@@ -91,7 +91,7 @@ buttonAdd.addEventListener("click", () => {
             secondNumber = "";
             return operator = "+", displayValue = `${firstNumber} + `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
         } else { //There is a firstNumber, but no existing operator
-            secondNumberToggle = true; 
+            secondNumberToggle = true;
             operator = "+";
             if (secondNumber === "") {
                 return operator = "+", displayValue += `${firstNumber} + `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
@@ -111,7 +111,7 @@ buttonSubtract.addEventListener("click", () => {
             secondNumber = "";
             return operator = "-", displayValue = `${firstNumber} - `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
         } else { //There is a firstNumber, but no existing operator
-            secondNumberToggle = true; 
+            secondNumberToggle = true;
             operator = "-";
             if (secondNumber === "") {
                 return operator = "-", displayValue += `${firstNumber} - `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
@@ -129,12 +129,12 @@ buttonMultiply.addEventListener("click", () => {
             operateMultiple();
             firstNumber = result;
             secondNumber = "";
-            return operator = "*", displayValue = `${firstNumber} * `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+            return operator = "*", displayValue = `${firstNumber} X `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
         } else { //There is a firstNumber, but no existing operator
-            secondNumberToggle = true; 
+            secondNumberToggle = true;
             operator = "*";
             if (secondNumber === "") {
-                return operator = "*", displayValue += `${firstNumber} * `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
+                return operator = "*", displayValue += `${firstNumber} X `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
             }
         }
     }
@@ -151,7 +151,7 @@ buttonDivide.addEventListener("click", () => {
             secondNumber = "";
             return operator = "/", displayValue = `${firstNumber} / `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
         } else { //There is a firstNumber, but no existing operator
-            secondNumberToggle = true; 
+            secondNumberToggle = true;
             operator = "/";
             if (secondNumber === "") {
                 return operator = "/", displayValue += `${firstNumber} / `, textDisplayTop.textContent = `${displayValue}`, textDisplayBottom.textContent = `${result}`, result = "";
@@ -173,19 +173,19 @@ textDisplayBottom.textContent = `${result}`;
 ///////////////////////////////////////////////// FUNCTIONS /////////////////////////////////////////////////
 
 function add() {
-    return result = parseFloat(firstNumber) + parseFloat(secondNumber), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat((firstNumber + secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function subtract() {
-    return result = parseFloat(firstNumber) - parseFloat(secondNumber), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat((firstNumber - secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function multiply() {
-    return result = parseFloat(firstNumber) * parseFloat(secondNumber), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat((firstNumber * secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function divide() {
-    return result = (parseFloat(firstNumber) / parseFloat(secondNumber)), textDisplayBottom.textContent = `${result}`;
+        return result = parseFloat((firstNumber / secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function operate() {
@@ -208,71 +208,72 @@ function operate() {
     }
     else if (operator === "/") {
         divide();
-        displayValue += `${secondNumber}` + " =";;
-        textDisplayTop.textContent = `${displayValue}`
-        return lastStoredResult = result;
-    }
-    return
-}
+        if (operator == "/" && secondNumber == "0") {
+            return alert("Stop that. You'll break it."), resetCalc();
+        } else {
+            displayValue += `${secondNumber}` + " =";;
+            textDisplayTop.textContent = `${displayValue}`
+            return lastStoredResult = result;
+        }
+    }}
 
-function operateMultiple() {
-    if (operator === "+") {
-        add();
-        displayValue += `${secondNumber}`;
-        textDisplayTop.textContent = `${displayValue}`
-        return lastStoredResult = result;
-    } else if (operator === "*") {
-        multiply();
-        displayValue += `${secondNumber}`;
-        textDisplayTop.textContent = `${displayValue}`
-        return lastStoredResult = result;
+    function operateMultiple() {
+        if (operator === "+") {
+            add();
+            displayValue += `${secondNumber}`;
+            textDisplayTop.textContent = `${displayValue}`
+            return lastStoredResult = result;
+        } else if (operator === "*") {
+            multiply();
+            displayValue += `${secondNumber}`;
+            textDisplayTop.textContent = `${displayValue}`
+            return lastStoredResult = result;
+        }
+        else if (operator === "-") {
+            subtract();
+            displayValue += `${secondNumber}`;
+            textDisplayTop.textContent = `${displayValue}`
+            return lastStoredResult = result;
+        }
+        else if (operator === "/") {
+            divide();
+            displayValue += `${secondNumber}`;
+            textDisplayTop.textContent = `${displayValue}`
+            return lastStoredResult = result;
+        }
+        return
     }
-    else if (operator === "-") {
-        subtract();
-        displayValue += `${secondNumber}`;
-        textDisplayTop.textContent = `${displayValue}`
-        return lastStoredResult = result;
-    }
-    else if (operator === "/") {
-        divide();
-        displayValue += `${secondNumber}`;
-        textDisplayTop.textContent = `${displayValue}`
-        return lastStoredResult = result;
-    }
-    return
-}
 
-function resetCalc() {
-    firstNumber = ""
-    operator = ""
-    secondNumber = ""
-    displayValue = ""
-    result = ""
-    textDisplayBottom.textContent = `${result}`;
-    textDisplayTop.textContent = `${displayValue}`;
-    secondNumberToggle = false;
-    return;
-}
-
-function toggleSecondNumber() {
-    if (secondNumberToggle === true) {
-        return secondNumberToggle = false;
-    } else {
-        return secondNumberToggle = true;
+    function resetCalc() {
+        firstNumber = ""
+        operator = ""
+        secondNumber = ""
+        displayValue = ""
+        result = ""
+        textDisplayBottom.textContent = `${result}`;
+        textDisplayTop.textContent = `${displayValue}`;
+        secondNumberToggle = false;
+        return;
     }
-}
+
+    function toggleSecondNumber() {
+        if (secondNumberToggle === true) {
+            return secondNumberToggle = false;
+        } else {
+            return secondNumberToggle = true;
+        }
+    }
 
 ///////////////////////////////////////////////// IMPROVEMENTS /////////////////////////////////////////////////
 
 /* 
-
 01. Simplify operator button events - could possibly be done using objects
     ie. Operator object
     01. Key = Add, Value = "+"
     02. Key = Multiply, Value = "*"
 
-02. UndoStep 
-    *need to research how to do this. Save state at each step for undo function?? Press undo - revert to last state???*
+02. Add a “backspace” button, so the user can undo if they click the wrong number. Undo 
+    *need to research how to do this. Save state at each step for undo function?? Press undo - revert to last state???
 
-03. Restrict result / display to ~5 decimal places.
+03. Add keyboard support!
 */

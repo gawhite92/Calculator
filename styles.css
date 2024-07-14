@@ -66,6 +66,11 @@ li,
     background-color:rgb(200, 222, 241);
 }
 
+li,
+#buttonDecimal {
+    background-color:rgb(172, 190, 206);   
+}
+
 #textDisplayBottom {
     font-size: 80px;
 }
