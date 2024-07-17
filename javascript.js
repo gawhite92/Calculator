@@ -173,19 +173,19 @@ textDisplayBottom.textContent = `${result}`;
 ///////////////////////////////////////////////// FUNCTIONS /////////////////////////////////////////////////
 
 function add() {
-    return result = parseFloat((firstNumber + secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat((Number(firstNumber) + Number(secondNumber)).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function subtract() {
-    return result = parseFloat((firstNumber - secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat((Number(firstNumber) - Number(secondNumber)).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function multiply() {
-    return result = parseFloat((firstNumber * secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat((Number(firstNumber) * Number(secondNumber)).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function divide() {
-        return result = parseFloat((firstNumber / secondNumber).toFixed(10)), textDisplayBottom.textContent = `${result}`;
+        return result = parseFloat((Number(firstNumber) / Number(secondNumber)).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function operate() {
@@ -277,3 +277,7 @@ function operate() {
 
 03. Add keyboard support!
 */
+
+
+
+// FIXED NUMBER OVERFLOW
