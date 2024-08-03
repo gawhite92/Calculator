@@ -20,12 +20,20 @@ buttons.forEach((button) => {
             newCalculationToggle = false;
         }
         if (secondNumberToggle === false) {
-            return firstNumber += (button.id), result += (button.id), textDisplayBottom.textContent = `${result}`;
+            return firstNumber += ((button.id).slice(6)), result += ((button.id).slice(6)), textDisplayBottom.textContent = `${result}`;
         } else {
-            return secondNumber += (button.id), result += (button.id), textDisplayBottom.textContent = `${result}`;
+            return secondNumber += ((button.id).slice(6)), result += ((button.id).slice(6)), textDisplayBottom.textContent = `${result}`;
         }
     })
 })
+
+
+//WORK IN PROGRESS
+//document.body.addEventListener("keyup", (ev) => {
+//    if (ev.key == "1") {
+//        buttons(1).click();
+//    }
+//})
 
 //Decimal button (Demical place - adds '.' string to active number)
 
@@ -185,7 +193,7 @@ function multiply() {
 }
 
 function divide() {
-        return result = parseFloat((Number(firstNumber) / Number(secondNumber)).toFixed(10)), textDisplayBottom.textContent = `${result}`;
+    return result = parseFloat((Number(firstNumber) / Number(secondNumber)).toFixed(10)), textDisplayBottom.textContent = `${result}`;
 }
 
 function operate() {
@@ -215,64 +223,65 @@ function operate() {
             textDisplayTop.textContent = `${displayValue}`
             return lastStoredResult = result;
         }
-    }}
-
-    function operateMultiple() {
-        if (operator === "+") {
-            add();
-            displayValue += `${secondNumber}`;
-            textDisplayTop.textContent = `${displayValue}`
-            return lastStoredResult = result;
-        } else if (operator === "*") {
-            multiply();
-            displayValue += `${secondNumber}`;
-            textDisplayTop.textContent = `${displayValue}`
-            return lastStoredResult = result;
-        }
-        else if (operator === "-") {
-            subtract();
-            displayValue += `${secondNumber}`;
-            textDisplayTop.textContent = `${displayValue}`
-            return lastStoredResult = result;
-        }
-        else if (operator === "/") {
-            divide();
-            displayValue += `${secondNumber}`;
-            textDisplayTop.textContent = `${displayValue}`
-            return lastStoredResult = result;
-        }
-        return
     }
+}
 
-    function resetCalc() {
-        firstNumber = ""
-        operator = ""
-        secondNumber = ""
-        displayValue = ""
-        result = ""
-        textDisplayBottom.textContent = `${result}`;
-        textDisplayTop.textContent = `${displayValue}`;
-        secondNumberToggle = false;
-        return;
+function operateMultiple() {
+    if (operator === "+") {
+        add();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
+    } else if (operator === "*") {
+        multiply();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
     }
+    else if (operator === "-") {
+        subtract();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
+    }
+    else if (operator === "/") {
+        divide();
+        displayValue += `${secondNumber}`;
+        textDisplayTop.textContent = `${displayValue}`
+        return lastStoredResult = result;
+    }
+    return
+}
 
-    function toggleSecondNumber() {
-        if (secondNumberToggle === true) {
-            return secondNumberToggle = false;
-        } else {
-            return secondNumberToggle = true;
-        }
+function resetCalc() {
+    firstNumber = ""
+    operator = ""
+    secondNumber = ""
+    displayValue = ""
+    result = ""
+    textDisplayBottom.textContent = `${result}`;
+    textDisplayTop.textContent = `${displayValue}`;
+    secondNumberToggle = false;
+    return;
+}
+
+function toggleSecondNumber() {
+    if (secondNumberToggle === true) {
+        return secondNumberToggle = false;
+    } else {
+        return secondNumberToggle = true;
     }
+}
 
 ///////////////////////////////////////////////// IMPROVEMENTS /////////////////////////////////////////////////
 
-/* 
+/*
 01. Simplify operator button events - could possibly be done using objects
     ie. Operator object
     01. Key = Add, Value = "+"
     02. Key = Multiply, Value = "*"
 
-02. Add a “backspace” button, so the user can undo if they click the wrong number. Undo 
+02. Add a “backspace” button, so the user can undo if they click the wrong number. Undo
     *need to research how to do this. Save state at each step for undo function?? Press undo - revert to last state???
 
 03. Add keyboard support!
